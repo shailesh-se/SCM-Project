@@ -16,15 +16,34 @@ public class HomeController {
     }
 
     @RequestMapping("/about")
-    public String aboutpage(Model model) {
-        System.out.println("About Page Loading");
+    public String aboutPage(Model model) {
         model.addAttribute("isLogin", true);
+        System.out.println("About page loading");
         return "about";
     }
-    
+
+    // services
+
     @RequestMapping("/services")
-    public String servicespage() {
-        System.out.println("services Page Loading");
+    public String servicesPage() {
+        System.out.println("services page loading");
         return "services";
+    }
+
+    // contact page
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 }

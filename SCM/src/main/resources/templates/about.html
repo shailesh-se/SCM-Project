@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+  <head>
     <title>About Page</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel="stylesheet" href="/css/output.css">                         Tailwind CSS file -->
-</head>
-<body>
-    <h2 class="text-red-500">This is about page!</h2>
-    <!-- Fragment -->
-    <div th:replace="${isLogin} ? ~{base :: parent(~{::section})} : ~{base :: nL}">
-    <section>
-        <p>Hello How are you ? </p>
-    </section>
-
+  </head>
+  <body>
+    <div id="content">
+      <h1>Welcome to about page</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
+        ratione!
+      </p>
     </div>
-</body>
+    <script>
+      console.log("about page");
+    </script>
+    <script>
+      console.log("second about page script");
+    </script>
+  </body>
 </html>

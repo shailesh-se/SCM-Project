@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>About Page</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel="stylesheet" href="/css/output.css">                 Tailwind CSS file -->
-</head>
-<body>
-    <p class="text-blue-500">This is Services page!</p>
-</body>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{})}">
+  <head>
+  
+    <title>
+      Services
+    </title>
+  </head>
+  <body>
+    <section id="content">
+      <h1>Welcome to services page</h1>
+      <h2>Services offered by SCM</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolore assumenda rerum harum mollitia incidunt nesciunt dignissimos esse dicta reprehenderit quam, quisquam aspernatur enim consequatur accusamus, minima alias odit ducimus.</p>
+    </section>
+
+  </body>
 </html>
