@@ -1,13 +1,27 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.example.demo.entities.User;
+import com.example.demo.forms.UserForm;
+import com.example.demo.services.UserService;
+
+
 
 
 @Controller
 public class HomeController {
+
+    @Autowired  
+    private UserService userService;
+
+
 
     @GetMapping("/home")
     public String homepage(Model model) {
@@ -43,7 +57,48 @@ public class HomeController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        UserForm userform = new UserForm();
+        // Sending DATA by Itself from Controller 
+        // userform.setUserId("shailesh_002");
+        // userform.setName("shailesh");
+        model.addAttribute("userform", userform);
         return "register";
     }
+
+    // Signup Processing
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm) {
+        System.out.println("Processing registration");
+        // fetch form data
+        // UserForm
+        System.out.println(userForm);
+
+        // validate form data
+
+        // save to database
+
+        // userservice
+
+        // UserForm--> User
+        User user = User.builder()
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .about(userForm.getAbout())
+                .phoneNumber(userForm.getPhoneNumber())
+                .profilePic("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
+                .build();
+
+        User savedUser = userService.saveUser(user);
+
+        System.out.println("user saved :");
+
+        // message = "Registration Successful"
+
+        // redirectto login page
+        return "redirect:/register";
+    }
+
+
 }
