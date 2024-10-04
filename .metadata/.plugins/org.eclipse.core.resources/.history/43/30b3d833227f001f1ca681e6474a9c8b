@@ -1,0 +1,161 @@
+package com.example.demo.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.*;
+
+@Entity(name="user")
+@Table(name="users")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class User {
+
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "user_id", updatable = false, nullable = false)
+    private String userId;
+
+    @Column(name="user_name", nullable=false)
+    private String name;
+
+    @Column(unique = true, nullable=false)
+    private String email;
+
+    private String password; // Ensure to hash passwords
+
+    @Column(nullable=true)
+    private String about;
+
+    private String profilePic;
+
+    @Column(unique = true, nullable=false)
+    private String phoneNumber; // Make sure to validate phone numbers
+
+    // Information about the user
+    private boolean enabled = false;
+    private boolean emailVerified = false;
+    private boolean phoneVerified = false;
+
+    // Auth provider details (e.g., Self, Google, Facebook)
+    @Enumerated(EnumType.STRING)
+    private Provider provider = Provider.SELF;
+
+    private String providerUserId;
+
+    // User contacts, with cascade and orphan removal
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contact> contacts = new ArrayList<>();
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isEmailVerified() {
+		return emailVerified;
+	}
+
+	public void setEmailVerified(boolean emailVerified) {
+		this.emailVerified = emailVerified;
+	}
+
+	public boolean isPhoneVerified() {
+		return phoneVerified;
+	}
+
+	public void setPhoneVerified(boolean phoneVerified) {
+		this.phoneVerified = phoneVerified;
+	}
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+	}
+
+	public String getProviderUserId() {
+		return providerUserId;
+	}
+
+	public void setProviderUserId(String providerUserId) {
+		this.providerUserId = providerUserId;
+	}
+
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
+
+    
+    
+}

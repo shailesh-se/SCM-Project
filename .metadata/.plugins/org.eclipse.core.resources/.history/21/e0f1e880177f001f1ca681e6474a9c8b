@@ -1,0 +1,46 @@
+package com.example.demo.forms;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString 
+
+public class UserForm {
+
+    private String userId;
+
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, message = "Min 3 Characters is required")
+    private String name;
+
+
+    @NotBlank
+    @Email(message="Invalid Email Address")
+    private String email;
+
+    @NotBlank
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,12}$", message = "password must be min 4 and max 12 length containing atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
+    private String password;
+
+    private String about;
+
+    @NotBlank
+    @Pattern(regexp="^\\d{10}$", message="Phone nummber should be of only 10 digit and must not contain any thing else except numbers")
+    private String phoneNumber;
+    
+    
+
+}

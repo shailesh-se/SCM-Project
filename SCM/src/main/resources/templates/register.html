@@ -2,6 +2,7 @@
 <html
   lang="en"
   th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <title>Signup</title>
@@ -36,10 +37,11 @@
 
         <!-- Sign-up Form -->
         <form
-          class="space-y-4"
           th:action="@{'/do-register'}"
-          th:object="${userform}"
           method="post"
+          th:object="${userForm}"
+          class="space-y-4"
+          novalidate
         >
 
           <!-- Name -->
@@ -47,17 +49,26 @@
             <label
               for="name"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Your Name</label
             >
+              Your Name
+            </label>
             <input
               type="text"
               id="name"
-              th:field="*{name}"
-              name="name"
+              th:field=*{name}
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
               placeholder="Enter your name"
               required
             />
+
+          <p
+            data-th-if="${#fields.hasErrors('name')}"
+            data-th-errors="*{name}"
+            class="text-red-600"
+          >
+            Name Error
+          </p>
+
           </div>
 
           <!-- Email -->
@@ -76,6 +87,13 @@
               placeholder="name@example.com"
               required
             />
+            <p
+            data-th-if="${#fields.hasErrors('email')}"
+            data-th-errors="*{email}"
+            class="text-red-600"
+          >
+            Email Error
+          </p>
           </div>
 
           <!-- Phone No. -->
@@ -91,9 +109,16 @@
               th:field="*{phoneNumber}"
               name="phone"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              placeholder="0123456789"
+              placeholder="+91 1234567890"
               required
             />
+            <p
+            data-th-if="${#fields.hasErrors('phoneNumber')}"
+            data-th-errors="*{phoneNumber}"
+            class="text-red-600"
+          >
+            Phone Nummber Error
+          </p>
           </div>
 
           <!-- Password -->
@@ -112,6 +137,13 @@
               placeholder="********"
               required
             />
+            <p
+            data-th-if="${#fields.hasErrors('password')}"
+            data-th-errors="*{password}"
+            class="text-red-600"
+          >
+            Password Error
+          </p>
           </div>
 
           <!-- About -->
