@@ -1,63 +1,60 @@
-console.log("Script loaded");
+// Theme initialization based on localStorage
+if (
+  localStorage.getItem("color-theme") === "dark" ||
+  (!("color-theme" in localStorage) &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches)
+) {
+  document.documentElement.classList.add("dark");
+} else {
+  document.documentElement.classList.remove("dark");
+}
 
-// change theme work
-let currentTheme = getTheme();
-//initial -->
+const themeToggleDarkIcon_2 = document.getElementById(
+  "theme-toggle-dark-icon-2"
+);
+const themeToggleLightIcon_2 = document.getElementById(
+  "theme-toggle-light-icon-2"
+);
 
-document.addEventListener("DOMContentLoaded", () => {
-  changeTheme();
+// Change the icons inside the button based on previous settings
+if (
+  localStorage.getItem("color-theme") === "dark" ||
+  (!("color-theme" in localStorage) &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches)
+) {
+  themeToggleLightIcon_2.classList.remove("hidden");
+} else {
+  themeToggleDarkIcon_2.classList.remove("hidden");
+}
+
+// Add event listener to the button for theme toggle
+const themeToggleBtn_2 = document.getElementById("theme_change_button_2");
+themeToggleBtn_2.addEventListener("click", function () {
+  // Toggle icons
+  themeToggleDarkIcon_2.classList.toggle("hidden");
+  themeToggleLightIcon_2.classList.toggle("hidden");
+
+  // Sync theme changes
+  sync_theme();
 });
 
-//TODO:
-function changeTheme() {
-  //set to web page
-
-  changePageTheme(currentTheme, "");
-  //set the listener to change theme button
-  const changeThemeButton = document.querySelector("#theme_change_button");
-
-  changeThemeButton.addEventListener("click", (event) => {
-    let oldTheme = currentTheme;
-    console.log("change theme button clicked");
-    if (currentTheme === "dark") {
-      //theme ko light
-      currentTheme = "light";
+// Function to sync theme changes to localStorage and document
+function sync_theme() {
+  if (localStorage.getItem("color-theme")) {
+    if (localStorage.getItem("color-theme") === "light") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark");
     } else {
-      //theme ko dark
-      currentTheme = "dark";
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light");
     }
-    console.log(currentTheme);
-    changePageTheme(currentTheme, oldTheme);
-  });
-}
-
-//set theme to localstorage
-function setTheme(theme) {
-  localStorage.setItem("theme", theme);
-}
-
-//get theme from localstorage
-function getTheme() {
-  let theme = localStorage.getItem("theme");
-  return theme ? theme : "light";
-}
-
-//change current page theme
-function changePageTheme(theme, oldTheme) {
-  //localstorage mein update karenge
-  setTheme(currentTheme);
-  //remove the current theme
-
-  if (oldTheme) {
-    document.querySelector("html").classList.remove(oldTheme);
+  } else {
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark");
+    }
   }
-  //set the current theme
-  document.querySelector("html").classList.add(theme);
-
-  // change the text of button
-  document
-    .querySelector("#theme_change_button")
-    .querySelector("span").textContent = theme == "light" ? "Dark" : "Light";
 }
-
-//change page change theme
