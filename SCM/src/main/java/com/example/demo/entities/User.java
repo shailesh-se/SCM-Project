@@ -2,43 +2,44 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Entity(name="user")
-@Table(name="users")
+@Entity(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "user_id", updatable = false, nullable = false)
     private String userId;
 
-    @Column(name="user_name", nullable=false)
+    @Column(name = "user_name", nullable = false)
     private String name;
 
-    @Column(unique = true, nullable=false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String password; // Ensure to hash passwords
 
-    @Column(nullable=true)
+    @Column(nullable = true)
     private String about;
 
     private String profilePic;
 
-    @Column(unique = true, nullable=false)
+    @Column(unique = true, nullable = false)
     private String phoneNumber; // Make sure to validate phone numbers
 
     // Information about the user
-    private boolean enabled = false;
+    private boolean enabled = true;
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
@@ -52,4 +53,38 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
 
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roleList = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // list of roles[USER,ADMIN]
+        // Collection of SimpGrantedAuthority[roles{ADMIN,USER}]
+        Collection<SimpleGrantedAuthority> roles = roleList.stream().map(role -> new SimpleGrantedAuthority(role))
+                .collect(Collectors.toList());
+        return roles;
+    }
+
+    
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; 
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 }

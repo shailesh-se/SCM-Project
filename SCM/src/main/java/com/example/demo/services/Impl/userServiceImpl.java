@@ -1,31 +1,50 @@
 package com.example.demo.services.Impl;
 
+
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.User;
+import com.example.demo.helpers.AppConstants;
 import com.example.demo.helpers.ResourceNotFoundException;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.services.UserService;
 
-@Service("userService")
-public class userServiceImpl implements UserService {
+@Service
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepo userRepo;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public User saveUser(User user) {
-        //encode password
+        // user id : have to generate
+        String userId = UUID.randomUUID().toString();
+        user.setUserId(userId);
+        // password encode
+        // user.setPassword(userId);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // set the user role
+
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+
+        logger.info(user.getProvider().toString());
+
         return userRepo.save(user);
+
     }
 
     @Override
@@ -35,11 +54,13 @@ public class userServiceImpl implements UserService {
 
     @Override
     public Optional<User> updateUser(User user) {
-        User user2 = userRepo.findById(user.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        User user2 = userRepo.findById(user.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        // update karenge user2 from user
         user2.setName(user.getName());
         user2.setEmail(user.getEmail());
         user2.setPassword(user.getPassword());
-        user2.setUserId(user.getUserId());
         user2.setAbout(user.getAbout());
         user2.setPhoneNumber(user.getPhoneNumber());
         user2.setProfilePic(user.getProfilePic());
@@ -48,16 +69,18 @@ public class userServiceImpl implements UserService {
         user2.setPhoneVerified(user.isPhoneVerified());
         user2.setProvider(user.getProvider());
         user2.setProviderUserId(user.getProviderUserId());
-
-        // Now save user in the database
+        // save the user in database
         User save = userRepo.save(user2);
         return Optional.ofNullable(save);
+
     }
 
     @Override
     public void deleteUser(String id) {
-        User user2 = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user2 = userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         userRepo.delete(user2);
+
     }
 
     @Override
@@ -76,5 +99,5 @@ public class userServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
-    
+
 }
