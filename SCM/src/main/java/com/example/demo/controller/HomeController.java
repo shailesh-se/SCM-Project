@@ -28,6 +28,10 @@ public class HomeController {
     private UserService userService;
 
 
+    @GetMapping("/")
+    public String index() {
+    	return"redirect:/home";
+    }
 
     @GetMapping("/home")
     public String homepage(Model model) {
@@ -77,13 +81,16 @@ public class HomeController {
 
     // Signup Processing
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult result, HttpSession session) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult result, HttpSession session, Model model) {
         System.out.println("Processing registration");
 
         System.out.println(userForm);
         
-        if(result.hasErrors()){
-            return "register";
+        if (result.hasErrors()) {
+            // Add an error indicator
+            session.setAttribute("hasErrors", true);
+            model.addAttribute("userForm", userForm);
+            return "register"; // Show the same page with errors
         }
         // fetch form data
         // UserForm
@@ -117,7 +124,8 @@ public class HomeController {
 
         User savedUser = userService.saveUser(user);
 
-        System.out.println("user saved :");
+        System.err.println("User saved with ID: " + savedUser.getUserId());
+
 
         // message = "Registration Successful"
         Message message = Message.builder().content("Registration Successful").type(MessageType.blue).build();

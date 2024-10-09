@@ -28,34 +28,40 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String password; // Ensure to hash passwords
+    private String password;
 
     @Column(nullable = true)
     private String about;
 
     private String profilePic;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String phoneNumber; // Make sure to validate phone numbers
 
     // Information about the user
+    @Builder.Default
     private boolean enabled = true;
+    @Builder.Default
     private boolean emailVerified = false;
+    @Builder.Default
     private boolean phoneVerified = false;
 
-    // Auth provider details (e.g., Self, Google, Facebook)
+    // Auth provider details (e.g., Self, Google, Github)
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Provider provider = Provider.SELF;
 
     private String providerUserId;
 
     // User contacts, with cascade and orphan removal
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Contact> contacts = new ArrayList<>();
 
 
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
     private List<String> roleList = new ArrayList<>();
 
     @Override

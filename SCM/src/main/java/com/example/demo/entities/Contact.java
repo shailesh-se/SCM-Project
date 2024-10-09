@@ -16,16 +16,33 @@ public class Contact {
 
     @Id
     private String id;
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private String address;
-    private String picture;
+    @SuppressWarnings("unused")
+	private String name;
+    
+    @SuppressWarnings("unused")
+	private String email;
+    
+    @SuppressWarnings("unused")
+	private String phoneNumber;
+    
+    @SuppressWarnings("unused")
+	private String address;
+    
+    @SuppressWarnings("unused")
+	private String picture;
+    
     @Column(length = 1000)
     private String description;
-    private boolean favorite = false;
-    private String websiteLink;
-    private String linkedInLink;
+    
+    @SuppressWarnings("unused")
+	private boolean favorite = false;
+    
+    @SuppressWarnings("unused")
+	private String websiteLink;
+    
+    @SuppressWarnings("unused")
+	private String linkedInLink;
+    
     // private List<String> socialLinks=new ArrayList<>();
 
     @ManyToOne
