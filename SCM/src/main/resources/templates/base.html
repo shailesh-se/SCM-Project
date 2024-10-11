@@ -23,7 +23,7 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="dark:bg-gray-600 dark:text-white">
+  <body class="dark:bg-gray-600 dark:text-white select-none">
     <!-- commona header -->
     <div data-th-replace="~{navbar :: navbar}"></div>
 
@@ -37,6 +37,17 @@
     <footer class="p-4">This is Footer this is common for all the Pages</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script>
+  // JavaScript to toggle the mobile menu
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
+  });
+</script>
     <script data-th-src="@{'/js/script.js'}"></script>
     <th:block data-th-replace="${script}"></th:block>
   </body>
