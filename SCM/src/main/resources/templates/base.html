@@ -31,10 +31,14 @@
     <div class="p-4">
       <section data-th-replace="${content}"></section>
     </div>
+
+    <div th:if="${loggedInUser != null}">
+      <div data-th-replace="~{Sidebar :: sidebar}"></div>
+    </div>
     <!-- flow bite content -->
 
     <!-- common footer -->
-    <footer class="p-4">This is Footer this is common for all the Pages</footer>
+    <footer class="pl-64">This is Footer this is common for all the Pages</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 <script>
@@ -48,7 +52,9 @@
     });
   });
 </script>
-    <script data-th-src="@{'/js/script.js'}"></script>
-    <th:block data-th-replace="${script}"></th:block>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script data-th-src="@{'/js/script.js'}"></script>
+<th:block data-th-replace="${script}"></th:block>
   </body>
 </html>

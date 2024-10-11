@@ -1,5 +1,5 @@
 <nav
-  class="bg-white border-b border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 sticky top-0 relative z-50" 
+  class="bg-white border-b border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 sticky top-0 relative z-50"
   th:fragment="navbar"
 >
   <div
@@ -7,13 +7,10 @@
   >
     <!-- Brand Logo -->
     <a class="flex items-center space-x-3 rtl:space-x-reverse flex-shrink-0">
-      <img
-  src="/assets/SCM.png"
-  class="h-8"
-  alt="SCM Logo"
-/>
+      <img src="/assets/SCM.png" class="h-8" alt="SCM Logo" />
 
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+      <span
+        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
         >SCM</span
       >
     </a>
@@ -26,39 +23,45 @@
             href="/home"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
             aria-current="page"
-          >Home</a>
+            >Home</a
+          >
         </li>
         <li th:if="${loggedInUser == null}">
           <a
             href="/about"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
-          >About</a>
+            >About</a
+          >
         </li>
         <li th:if="${loggedInUser == null}">
           <a
             href="/services"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
-          >Services</a>
+            >Services</a
+          >
         </li>
         <li th:if="${loggedInUser == null}">
           <a
             href="/contact"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
-          >Contact</a>
+            >Contact</a
+          >
         </li>
-        
+
         <li th:if="${loggedInUser != null}">
           <a
             href="/user/dashboard"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
-          >Dashboard</a>
+            >Dashboard</a
+          >
         </li>
-        
+
         <li th:if="${loggedInUser != null}">
           <a
             href="/user/profile"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
-          >Profile</a>
+            >Profile</a
+          >
         </li>
       </ul>
     </div>
@@ -79,7 +82,9 @@
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          <path
+            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+          ></path>
         </svg>
         <!-- theme-toggle-light-icon-2 -->
         <svg
@@ -98,6 +103,9 @@
       </button>
 
       <!-- Login/Logout and Signup buttons - Visible on desktop -->
+      
+
+      <!-- Login/Logout and Signup buttons - Visible on desktop -->
       <div class="hidden md:block">
         <div th:if="${loggedInUser != null}">
           <a
@@ -107,6 +115,7 @@
             Log Out
           </a>
         </div>
+
         <div th:if="${loggedInUser == null}" class="space-x-2">
           <a
             href="/login"
@@ -128,8 +137,19 @@
         id="mobile-menu-button"
         class="md:hidden text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:text-gray-300"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
         </svg>
       </button>
     </div>
@@ -139,33 +159,69 @@
   <div id="mobile-menu" class="hidden md:hidden">
     <ul class="px-2 pt-2 pb-3 space-y-1">
       <li th:if="${loggedInUser == null}">
-        <a href="/home" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700">Home</a>
+        <a
+          href="/home"
+          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700"
+          >Home</a
+        >
       </li>
       <li th:if="${loggedInUser == null}">
-        <a href="/about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700">About</a>
+        <a
+          href="/about"
+          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700"
+          >About</a
+        >
       </li>
       <li th:if="${loggedInUser == null}">
-        <a href="/services" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700">Services</a>
+        <a
+          href="/services"
+          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700"
+          >Services</a
+        >
       </li>
       <li th:if="${loggedInUser == null}">
-        <a href="/contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700">Contact</a>
+        <a
+          href="/contact"
+          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700"
+          >Contact</a
+        >
       </li>
       <li th:if="${loggedInUser != null}">
-        <a href="/user/dashboard" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700">Dashboard</a>
+        <a
+          href="/user/dashboard"
+          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700"
+          >Dashboard</a
+        >
       </li>
       <li th:if="${loggedInUser != null}">
-        <a href="/user/profile" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700">Profile</a>
+        <a
+          href="/user/profile"
+          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-500 dark:hover:bg-gray-700"
+          >Profile</a
+        >
       </li>
     </ul>
     <div class="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
       <div th:if="${loggedInUser != null}" class="px-2">
-        <a href="/do-logout" class="block px-3 py-2 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-md">Log Out</a>
+        
+        <a
+          href="/do-logout"
+          class="block px-3 py-2 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-md"
+          >Log Out</a
+        >
       </div>
       <div th:if="${loggedInUser == null}" class="px-2 space-y-1">
-        <a href="/login" class="block px-3 py-2 text-base font-medium text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 rounded-md">Log In</a>
-        <a href="/register" class="block px-3 py-2 text-base font-medium text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 rounded-md">Sign Up</a>
+        <a
+          href="/login"
+          class="block px-3 py-2 text-base font-medium text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 rounded-md"
+          >Log In</a
+        >
+        <a
+          href="/register"
+          class="block px-3 py-2 text-base font-medium text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 rounded-md"
+          >Sign Up</a
+        >
       </div>
     </div>
   </div>
 </nav>
-
