@@ -1,0 +1,104 @@
+<nav class="bg-slate-200 border-gray-900 shadow-sm dark:bg-gray-900 sticky top-0" th:fragment="navbar">
+  <div class="max-w-screen mx-2 flex flex-wrap items-center justify-between p-4">
+    <!-- Brand Logo -->
+    <a href="/home" class="flex items-center">
+      <img
+        src="https://cdn-icons-png.flaticon.com/128/455/455705.png"
+        class="h-8 mr-3"
+        alt="Logo"
+      />
+      <span class="text-2xl font-semibold whitespace-nowrap dark:text-white">SCM</span>
+    </a>
+
+    <!-- Button Group (Theme Toggle, Login, Signup) -->
+    <div class="flex gap-2 md:order-2 space-x-3 rtl:space-x-reverse">
+      <!-- Dark/Light Theme Toggle Button -->
+      <button
+        id="theme_change_button_2"
+        type="button"
+        class="block py-1.5 px-3 text-center bg-gray-100 border border-gray-300 rounded-md text-black dark:hover:bg-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 px-4 py-3 text-sm text-center font-semibold rounded-xl"
+      >
+        <!-- Theme icons omitted for brevity -->
+      </button>
+
+      <!-- Login Button -->
+      <a
+        class="block py-1.5 px-3 text-center bg-gray-100 border border-gray-300 rounded-md text-black dark:hover:bg-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 px-4 py-3 text-sm text-center font-semibold rounded-xl"
+        href="/login"
+      >
+        LogIn
+      </a>
+
+      <!-- Signup Button -->
+      <a
+        class="block py-1.5 px-3 text-center bg-gray-100 border border-gray-300 rounded-md text-black dark:hover:bg-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 px-4 py-3 text-sm text-center font-semibold rounded-xl"
+        href="/register"
+      >
+        SignUp
+      </a>
+
+      <!-- Small Screen Menu Button -->
+      <button
+        data-collapse-toggle="navbar-cta"
+        type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-5 h-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navbar Links -->
+    <div
+      class="hidden w-full md:flex md:w-auto md:order-1 inline-block align-middle"
+      id="navbar-cta"
+    >
+      <ul
+        class="flex flex-col md:flex-row md:space-x-8 p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:bg-white dark:bg-gray-800 dark:border-gray-700 md:dark:bg-gray-900"
+      >
+        <li>
+          <a
+            href="/home"
+            th:classappend="${#httpServletRequest.requestURI == '/home'} ? 'bg-blue-700 text-white hover:bg-blue-600' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'"
+            class="block py-2 px-3 rounded"
+            aria-current="page"
+          >Home</a>
+        </li>
+        <li>
+          <a
+            href="/about"
+            th:classappend="${#httpServletRequest.requestURI == '/about'} ? 'bg-blue-700 text-white hover:bg-blue-600' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'"
+            class="block py-2 px-3 rounded"
+          >About</a>
+        </li>
+        <li>
+          <a
+            href="/services"
+            th:classappend="${#httpServletRequest.requestURI == '/services'} ? 'bg-blue-700 text-white hover:bg-blue-600' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'"
+            class="block py-2 px-3 rounded"
+          >Services</a>
+        </li>
+        <li>
+          <a
+            href="/contact"
+            th:classappend="${#httpServletRequest.requestURI == '/contact'} ? 'bg-blue-700 text-white hover:bg-blue-600' : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'"
+            class="block py-2 px-3 rounded"
+          >Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,25 @@
+package com.example.demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+@Configuration
+public class securityConfig {
+
+    // @Bean
+    // public UserDetailsService userDetailsService() {
+    //     // Correct usage of withDefaultPasswordEncoder()
+    //     UserDetails user = User.withDefaultPasswordEncoder() // This returns a User.UserBuilder
+    //             .username("admin123") // Set username
+    //             .password("admin123") // Set plain password, which will be encoded
+    //             .roles("ADMIN", "USER") // Set roles
+    //             .build(); // Build the UserDetails object
+
+    //     // In-memory user details manager
+    //     return new InMemoryUserDetailsManager(user);
+    // }
+}

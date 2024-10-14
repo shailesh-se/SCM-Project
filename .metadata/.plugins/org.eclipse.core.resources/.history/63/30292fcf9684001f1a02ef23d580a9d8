@@ -1,0 +1,87 @@
+package com.example.demo.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.*;
+
+@Entity(name = "user")
+@Table(name = "users")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class User implements UserDetails {
+
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "user_id", updatable = false, nullable = false)
+    private String userId;
+
+    @Column(name = "user_name", nullable = false)
+    private String name;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    private String password; // Ensure to hash passwords
+
+    @Column(nullable = true)
+    private String about;
+
+    private String profilePic;
+
+    @Column(unique = true, nullable = false)
+    private String phoneNumber; // Make sure to validate phone numbers
+
+    // Information about the user
+    private boolean enabled = false;
+    private boolean emailVerified = false;
+    private boolean phoneVerified = false;
+
+    // Auth provider details (e.g., Self, Google, Facebook)
+    @Enumerated(EnumType.STRING)
+    private Provider provider = Provider.SELF;
+
+    private String providerUserId;
+
+    // User contacts, with cascade and orphan removal
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contact> contacts = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO: Implement roles and authorities here if needed
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; 
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+}

@@ -1,0 +1,101 @@
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.example.demo.entities.Contact;
+import com.example.demo.entities.User;
+import com.example.demo.forms.ContactForm;
+import com.example.demo.helpers.Helper;
+import com.example.demo.helpers.Message;
+import com.example.demo.helpers.MessageType;
+import com.example.demo.services.ContactService;
+import com.example.demo.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+
+@Controller
+@RequestMapping("/user/contact")
+public class ContactController {
+
+    // add contact page
+
+    // WE CAN SET DIRECTL INTO THE FORM VIA CONTROLLER
+    // contactForm.setName("Shailesh");
+    // contactForm.setEmail("siisi@mg.vm");
+    // contactForm.setPhoneNumber("74561230");
+    // contactForm.setDescription("sad sda asd");
+    // contactForm.setAddress("lko");
+    // contactForm.setFavorite(true);
+    // contactForm.setLinkedInLink("aaaaa");
+    // contactForm.setWebsiteLink("wwww");
+
+    @Autowired
+    private ContactService contactService;
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value = "/add")
+    public String addContact(Model model) {
+        ContactForm contactForm = new ContactForm();
+        model.addAttribute("contactForm", contactForm);
+        return "user/addContact";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String saveContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult result,
+            Authentication authentication, HttpSession session) {
+
+        if (result.hasErrors()) {
+            session.setAttribute("message", Message.builder()
+                    .content("Please correct the following errors")
+                    .type(MessageType.red)
+                    .build());
+            return "user/addContact";
+        }
+
+        String Username = Helper.getEmailOfLoggedInUser(authentication);
+
+        // First convert FORM ---> contact
+
+        User user = userService.getUserByEmail(Username);
+        Contact contact = new Contact();
+
+        contact.setName(contactForm.getName());
+        contact.setFavorite(contactForm.isFavorite());
+        contact.setEmail(contactForm.getEmail());
+        contact.setPhoneNumber(contactForm.getPhoneNumber());
+        contact.setAddress(contactForm.getAddress());
+        contact.setDescription(contactForm.getDescription());
+        contact.setUser(user);
+        contact.setLinkedInLink(contactForm.getLinkedInLink());
+        contact.setWebsiteLink(contactForm.getWebsiteLink());
+
+        // contactService.save(contact);
+        System.out.println(contact);
+
+        session.setAttribute("message",
+                Message.builder()
+                        .content("You have successfully added a new contact")
+                        .type(MessageType.green)
+                        .build());
+
+        return "redirect:/user/contact/add";
+    }
+
+    // view contact page
+    @RequestMapping(value = "/view")
+    public String viewContact() {
+
+        return "user/viewContact";
+    }
+
+}

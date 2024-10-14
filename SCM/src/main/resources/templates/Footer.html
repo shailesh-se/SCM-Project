@@ -1,0 +1,118 @@
+
+<footer class="bg-gray-300 dark:bg-gray-800" th:fragment="foot">
+    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <div class="md:flex md:justify-between">
+            <!-- Brand Section -->
+            <div class="mb-6 md:mb-0">
+                <a class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <img src="https://cdn-icons-png.flaticon.com/128/455/455705.png" class="h-8" alt="SCM Logo" />
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SCM</span>
+                </a>
+                <p class="mt-4 max-w-xs text-sm text-gray-600 dark:text-gray-400">
+                    Smart Contact Manager: Your secure solution for organizing and managing contacts in the cloud.
+                </p>
+                <!-- Social Media Links -->
+                <div class="mt-4 flex space-x-5">
+                    <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-500">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-400 dark:hover:text-blue-500">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-pink-600 dark:hover:text-blue-500">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-800 dark:hover:text-blue-500">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Links Sections -->
+            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                <!-- Quick Links -->
+                <div>
+                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Quick Links</h2>
+                    <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                        <li class="mb-4" th:if="${loggedInUser == null}">
+                            <a th:href="@{/about}" class="hover:text-blue-600 dark:hover:text-blue-500">About</a>
+                        </li>
+                        <li class="mb-4" th:if="${loggedInUser == null}">
+                            <a th:href="@{/services}" class="hover:text-blue-600 dark:hover:text-blue-500">Services</a>
+                        </li>
+                        <li class="mb-4" th:if="${loggedInUser == null}">
+                            <a th:href="@{/contact}" class="hover:text-blue-600 dark:hover:text-blue-500">Contact</a>
+                        </li>
+                        <li class="mb-4" th:if="${loggedInUser != null}">
+                            <a th:href="@{/user/dashboard}" class="hover:text-blue-600 dark:hover:text-blue-500">Dashboard</a>
+                        </li>
+                        <li class="mb-4" th:if="${loggedInUser != null}">
+                            <a th:href="@{/user/profile}" class="hover:text-blue-600 dark:hover:text-blue-500">Profile</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Resources -->
+                <div>
+                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
+                    <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">Documentation</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">Help Center</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">API Status</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Legal -->
+                <div>
+                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                    <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">Privacy Policy</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">Terms of Service</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">Cookie Policy</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-500">License</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-8 mt-8">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <!-- Copyright -->
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+                    © <span th:text="${#dates.year(#dates.createNow())}">2024</span>
+                    <a class="hover:text-blue-600">SCM™</a>. All Rights Reserved.
+                </span>
+                
+                <!-- Authentication Links -->
+                <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0" th:if="${loggedInUser == null}">
+                    <a 
+                        th:href="@{/login}" 
+                        class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-500"
+                    >
+                        Login
+                    </a>
+                    <a 
+                        th:href="@{/register}" 
+                        class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-500"
+                    >
+                        Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -32,13 +32,22 @@
       <section data-th-replace="${content}"></section>
     </div>
 
-    <div th:if="${loggedInUser != null}">
+    <!-- Sidebar -->
+    <!-- <<div th:if="${loggedInUser != null}">
       <div data-th-replace="~{Sidebar :: sidebar}"></div>
-    </div>
+    </div>> -->
+
     <!-- flow bite content -->
 
     <!-- common footer -->
-    <footer class="pl-64">This is Footer this is common for all the Pages</footer>
+    <!-- <div th:if="${loggedInUser != null}">
+      <footer class="lg:pl-64">This is Footer this is common for all the Pages</footer>
+    </div> -->
+
+    <div th:if="${loggedInUser == null}">
+      <footer>This is Footer this is common for all the Pages</footer>
+    </div> 
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 <script>

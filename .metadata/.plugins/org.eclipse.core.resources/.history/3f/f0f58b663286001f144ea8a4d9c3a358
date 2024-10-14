@@ -1,0 +1,27 @@
+module.exports = {
+  content: [
+    'C:/Study/JAVA/SpringBoot/Project/SCM/src/main/resources/templates/**/*.{html,js}',  // For Thymeleaf templates
+    'C:/Study/JAVA/SpringBoot/Project/SCM/src/main/resources/static/js/**/*.js',         // If you have custom JS files
+    'C:/Study/JAVA/SpringBoot/Project/SCM/src/main/resources/static/css/**/*.css',       // Tailwind classes in your CSS
+	'./node_modules/flowbite/**/*.js'													// Flowbite Import	
+  ],
+  theme: {
+	colors: {
+	      transparent: 'transparent',
+	      current: 'currentColor',
+	      'white': '#ffffff',
+	      'purple': '#3f3cbb',
+	      'midnight': '#121063',
+	      'metal': '#565584',
+	      'tahiti': '#3ab7bf',
+	      'silver': '#ecebff',
+	      'bubble-gum': '#ff77e9',
+	      'bermuda': '#78dcca',
+		  'red':'#de3753',
+	    },
+    extend: {},
+  },
+  plugins: [
+          require('flowbite/plugin')
+      ],
+}
