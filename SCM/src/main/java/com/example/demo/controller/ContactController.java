@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import com.example.demo.helpers.Helper;
 import com.example.demo.helpers.Message;
 import com.example.demo.helpers.MessageType;
 import com.example.demo.services.ContactService;
+import com.example.demo.services.ImageService;
 import com.example.demo.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -39,6 +42,9 @@ public class ContactController {
 
     @Autowired
     private ContactService contactService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private UserService userService;
@@ -67,6 +73,9 @@ public class ContactController {
         // First convert FORM ---> contact
 
         User user = userService.getUserByEmail(Username);
+        String filename = UUID.randomUUID().toString();
+        String fileURL = imageService.uploadImage(contactForm.getContactImage(), filename);
+
         Contact contact = new Contact();
 
         contact.setName(contactForm.getName());
@@ -78,9 +87,12 @@ public class ContactController {
         contact.setUser(user);
         contact.setLinkedInLink(contactForm.getLinkedInLink());
         contact.setWebsiteLink(contactForm.getWebsiteLink());
+        contact.setPicture(fileURL);
+        contact.setCloudinaryImagePublicId(filename);
 
-        // contactService.save(contact);
+        contactService.save(contact);
         System.out.println(contact);
+        
 
         session.setAttribute("message",
                 Message.builder()

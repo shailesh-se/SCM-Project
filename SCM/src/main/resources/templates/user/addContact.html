@@ -19,7 +19,7 @@
           <div class="col-span-3"></div>
           <div class="col-span-12 md:col-span-6">
             <a
-              class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              class="block w-full p-6 bg-gray-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
               <div data-th-replace="message::messagebox"></div>
               <h1
@@ -246,6 +246,9 @@
                     class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     data-th-field="*{contactImage}"
                     type="file"
+                    id="contactImage"
+                    accept="image/*"
+                    onchange="previewImage(event)"
                   />
                   <p
                     class="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -253,6 +256,16 @@
                   >
                     PNG, JPG or JPEG (MAX. 800x400px).
                   </p>
+                  <div class="flex justify-center ">
+                    <div id="imagePreview" class="mt-4 hidden">
+                      <img
+                        id="preview"
+                        src="#"
+                        alt="Image preview"
+                        class="w-[400px] h-[400px] rounded-lg"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div>
@@ -271,7 +284,22 @@
     </div>
 
     <script>
-      console.log("Profile page loaded");
+      console.log("Add Contact page loaded");
+
+      function previewImage(event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            const preview = document.getElementById("preview");
+            preview.src = e.target.result;
+            document.getElementById("imagePreview").classList.remove("hidden");
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
     </script>
   </body>
 </html>
