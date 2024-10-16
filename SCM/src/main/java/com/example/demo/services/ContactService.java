@@ -2,7 +2,10 @@ package com.example.demo.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.example.demo.entities.Contact;
+import com.example.demo.entities.User;
 
 public interface ContactService {
 
@@ -26,4 +29,7 @@ public interface ContactService {
 
     // get contacts by userId
     List<Contact> getByUserId(String userId); 
+
+    // get contacts by user
+    Page<Contact> getByUser(User user, int page, int size, String sortField, String sortDirection);
 }

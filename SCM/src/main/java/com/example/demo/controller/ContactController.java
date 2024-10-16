@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entities.Contact;
 import com.example.demo.entities.User;
 import com.example.demo.forms.ContactForm;
+import com.example.demo.helpers.AppConstants;
 import com.example.demo.helpers.Helper;
 import com.example.demo.helpers.Message;
 import com.example.demo.helpers.MessageType;
@@ -92,7 +95,6 @@ public class ContactController {
 
         contactService.save(contact);
         System.out.println(contact);
-        
 
         session.setAttribute("message",
                 Message.builder()
@@ -105,7 +107,23 @@ public class ContactController {
 
     // view contact page
     @RequestMapping(value = "/view")
-    public String viewContact() {
+    public String viewContact(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,
+            Model model,
+            Authentication authentication) {
+
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+
+        User user = userService.getUserByEmail(username);
+
+        Page<Contact> pageContact = contactService.getByUser(user, page, size, sortBy, direction);
+        System.out.println("Page content: " + pageContact.getContent());
+
+        model.addAttribute("pageContact", pageContact);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
 
         return "user/viewContact";
     }
