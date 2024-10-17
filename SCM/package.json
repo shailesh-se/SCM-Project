@@ -14,7 +14,8 @@
     "autoprefixer": "^10.4.20",
     "flowbite": "^2.5.1",
     "java": "file:",
-    "postcss": "^8.4.47"
+    "postcss": "^8.4.47",
+    "sweetalert2": "^11.14.3"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.14"
