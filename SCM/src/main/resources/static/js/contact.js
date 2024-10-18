@@ -57,9 +57,9 @@ async function loadContactdata(id) {
       contactFavorite.innerHTML = "Not a Favorite Contact";
     }
 
-    document.querySelector("#contact_website").innerHTML = data.websiteLink ? "Visit Website" : "No Website Link Available";
+    document.querySelector("#contact_website").innerHTML = data.websiteLink ? data.websiteLink : "No Website Link Available";
 
-    document.querySelector("#contact_linkedIn").innerHTML = data.linkedInLink ? "LinkedIn Profile" : "No LinkedIn Profile Available";
+    document.querySelector("#contact_linkedIn").innerHTML = data.linkedInLink ? data.linkedInLink : "No LinkedIn Profile Available";
 
     openContactModal();
   } catch (error) {
@@ -67,18 +67,23 @@ async function loadContactdata(id) {
   }
 }
 
-// delete contact
-async function deleteContact(id) {
+
+// Delete Contact 
+function deleteContact(id) {
     Swal.fire({
-      title: "Do you want to delete the contact?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Delete",
+        title: "Do you want to delete the contact?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        const url = `${baseURL}/user/contact/delete/` + id;
-        window.location.replace(url);
-      }
+        if (result.isConfirmed) {
+            try {
+                const url = `${baseURL}/user/contact/delete/${id}`;
+                window.location.replace(url);
+            } catch (error) {
+                console.error("Error during redirect:", error);
+                Swal.fire("Error", "Failed to delete contact", "error");
+            }
+        }
     });
-  }
+}

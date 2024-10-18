@@ -10,7 +10,7 @@
     <div id="content">
       <!-- Sidebar -->
       <div th:if="${loggedInUser != null}">
-        <div data-th-replace="~{Sidebar :: sidebar}"></div>
+        <div th:replace="~{Sidebar :: sidebar}"></div>
       </div>
 
       <!-- Main Content -->
@@ -21,7 +21,7 @@
             <a
               class="block w-full p-6 bg-gray-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
-              <div data-th-replace="message::messagebox"></div>
+              <div th:replace="message::messagebox"></div>
               <h1
                 class="text-xl font-semibold text-center dark:text-white mb-2"
               >
@@ -43,7 +43,7 @@
                 <!-- Favourite -->
                 <div class="me-4 mb-2">
                   <input
-                    data-th-field="*{favorite}"
+                    th:field="*{favorite}"
                     id="favourite"
                     type="checkbox"
                     value=""
@@ -69,7 +69,7 @@
                       <i class="fa-solid fa-user w-4 h-4"></i>
                     </div>
                     <input
-                      data-th-field="*{name}"
+                      th:field="*{name}"
                       type="text"
                       id="name"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -78,8 +78,8 @@
                   </div>
                   <p
                     class="text-red-500"
-                    data-th-if="${#fields.hasErrors('name')}"
-                    data-th-errors="*{name}"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}"
                   >
                     Invalid Name
                   </p>
@@ -99,7 +99,7 @@
                       <i class="fa-solid fa-envelope w-4 h-4"></i>
                     </div>
                     <input
-                      data-th-field="*{email}"
+                      th:field="*{email}"
                       type="text"
                       id="email"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -108,8 +108,8 @@
                   </div>
                   <p
                     class="text-red-500"
-                    data-th-if="${#fields.hasErrors('email')}"
-                    data-th-errors="*{email}"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}"
                   >
                     Invalid Email
                   </p>
@@ -129,7 +129,7 @@
                       <i class="fa-solid fa-phone w-4 h-4"></i>
                     </div>
                     <input
-                      data-th-field="*{phoneNumber}"
+                      th:field="*{phoneNumber}"
                       type="text"
                       id="phone"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -138,8 +138,8 @@
                   </div>
                   <p
                     class="text-red-500"
-                    data-th-if="${#fields.hasErrors('phoneNumber')}"
-                    data-th-errors="*{phoneNumber}"
+                    th:if="${#fields.hasErrors('phoneNumber')}"
+                    th:errors="*{phoneNumber}"
                   >
                     Invalid Email
                   </p>
@@ -153,7 +153,7 @@
                     >Contact Address</label
                   >
                   <textarea
-                    data-th-field="*{address}"
+                    th:field="*{address}"
                     id="address"
                     rows="4"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -162,8 +162,8 @@
 
                   <p
                     class="text-red-500"
-                    data-th-if="${#fields.hasErrors('address')}"
-                    data-th-errors="*{address}"
+                    th:if="${#fields.hasErrors('address')}"
+                    th:errors="*{address}"
                   >
                     Invalid Email
                   </p>
@@ -177,7 +177,7 @@
                     >Contact Description</label
                   >
                   <textarea
-                    data-th-field="*{description}"
+                    th:field="*{description}"
                     id="description"
                     rows="4"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -202,7 +202,7 @@
                         <i class="fa-brands fa-linkedin-in w-4 h-4"></i>
                       </div>
                       <input
-                        data-th-field="*{linkedInLink}"
+                        th:field="*{linkedInLink}"
                         type="text"
                         id="linkedInLink"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -225,7 +225,7 @@
                         <i class="fa-solid fa-globe w-4 h-4"></i>
                       </div>
                       <input
-                        data-th-field="*{websiteLink}"
+                        th:field="*{websiteLink}"
                         type="text"
                         id="websiteLink"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -244,7 +244,7 @@
                   >
                   <input
                     class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    data-th-field="*{contactImage}"
+                    th:field="*{contactImage}"
                     type="file"
                     id="contactImage"
                     accept="image/*"
@@ -256,14 +256,23 @@
                   >
                     PNG, JPG or JPEG (MAX. 800x400px).
                   </p>
+
+                  <p
+                    class="text-red-500"
+                    th:if="${#fields.hasErrors('contactImage')}"
+                    th:errors="*{contactImage}"
+                  >
+                    Invalid Name
+                  </p>
+
                   <div class="flex justify-center ">
                     <div id="imagePreview" class="mt-4 hidden">
                       <img
-                        id="preview"
-                        src="#"
-                        alt="Image preview"
-                        class="w-[400px] h-[400px] rounded-lg"
-                      />
+                      th:src="*{picture}"
+                      class="max-h-52 mx-auto rounded-lg shadow m-3"
+                      id="preview"
+                      alt=""
+                    />
                     </div>
                   </div>
                 </div>

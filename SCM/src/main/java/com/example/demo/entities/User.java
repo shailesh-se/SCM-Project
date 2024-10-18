@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     // Information about the user
     @Builder.Default
-    private boolean enabled = true;
+    private boolean enabled = false;
     @Builder.Default
     private boolean emailVerified = false;
     @Builder.Default
